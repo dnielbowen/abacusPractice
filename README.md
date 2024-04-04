@@ -1,6 +1,6 @@
 # Abacus practice
 
-[https://chestnut-software.com/abacus/](See the live version)
+[See the live version](https://chestnut-software.com/abacus/)
 
 This was hacked together out of practicality as a tool to drill myself in using 
 an abacus (specifically, the Japanese soroban variant).
