@@ -28,7 +28,7 @@ function App() {
         <div className='text-4xl'>
           Abacus practice
         </div>
-        <div className='text-sm'>Add each number and check with the running total below, helpful for learning the abacus/soroban</div>
+        <div className='text-sm text-center'>Add each number and check with the running total below, helpful for learning the abacus/soroban</div>
       </div>
       <div className='flex justify-center items-end flex-col gap-4'>
         {nums.map((num, i) => <div className='flex flex-col items-end gap-0'>
