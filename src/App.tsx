@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="flex flex-col gap-4 items-center">
-      <div className='text-4xl text-gray-500'>Soroban practice</div>
+      <div className='text-4xl text-gray-500 dark:text-gray-300'>Soroban practice</div>
       <div className='flex justify-center items-end flex-col gap-4'>
         {nums.map((num, i) => <div className='flex flex-col items-end gap-0'>
           <div className='text-4xl font-mono'>
@@ -30,13 +30,13 @@ function App() {
         </div>)}
         <div className='flex flex-col gap-1 items-center'>
           <div className="flex items-center gap-1">
-            <input className='text-xl p-2 rounded-md w-[150px] border border-gray-400' type="text" value={max.toLocaleString()} onChange={ev => setMax(numStrToNum(ev.currentTarget.value))} />
+            <input className='text-xl p-2 rounded-md w-[150px] border border-gray-400 dark:border-gray-900' type="text" value={max.toLocaleString()} onChange={ev => setMax(numStrToNum(ev.currentTarget.value))} />
             <button className='p-3 text-xl text-gray-600 border border-gray-500 rounded-lg'
               onClick={() => setNums(nums => [...nums, getNext()])}>
               Add
             </button>
           </div>
-          <button className='p-3 text-xl text-gray-500 border border-gray-200 rounded-lg'
+          <button className='p-3 text-xl text-gray-500 border border-gray-200 dark:border-gray-600 rounded-lg'
             onClick={() => setNums([])}>
             Reset
           </button>
