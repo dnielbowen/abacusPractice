@@ -18,8 +18,9 @@ function RefreshIcon() {
 
 function App() {
   const [max, setMax] = useState(5000);
+  const [includeNegative, setIncludeNegative] = useState(false);
 
-  const getNext = () => Math.floor(max * Math.random());
+  const getNext = () => Math.floor(max * Math.random()) * ((includeNegative && Math.random() < 0.4) ? -1 : 1);
   const [nums, setNums] = useState([...Array(5)].map(() => getNext()));
   const [showAnswers, setShowAnswers] = useState(true);
 
@@ -34,9 +35,9 @@ function App() {
       <div className='flex justify-center items-end flex-col gap-4'>
         {nums.map((num, i) => <div key={i} className='flex flex-col items-end gap-0'>
           <div className="font-mono flex gap-1 items-baseline">
-            <div className='text-base'>+</div>
+            <div className='text-base'>{num > 0 ? "+" : "-"}</div>
             <div className='text-4xl'>
-              {num.toLocaleString()}
+              {Math.abs(num).toLocaleString()}
             </div>
           </div>
           <div className={'transition-all duration-500 text-sm' + (!showAnswers ? ' opacity-0' : '')}>
@@ -55,9 +56,15 @@ function App() {
             </div>
           </div>
           <div className='flex items-center gap-3'>
-            <div className='flex items-center gap-1'>
-              <input type="checkbox" id="hide" checked={showAnswers} onChange={ev => setShowAnswers(ev.currentTarget.checked)} />
-              <label htmlFor="hide">Show answers</label>
+            <div className="flex flex-col gap-0">
+              <div className='flex items-center gap-1'>
+                <input type="checkbox" id="hide" checked={showAnswers} onChange={ev => setShowAnswers(ev.currentTarget.checked)} />
+                <label htmlFor="hide">Show answers</label>
+              </div>
+              <div className='flex items-center gap-1'>
+                <input type="checkbox" id="negative" checked={includeNegative} onChange={ev => setIncludeNegative(ev.currentTarget.checked)} />
+                <label htmlFor="negative">Include negative</label>
+              </div>
             </div>
             <button className='p-2 text-xl text-gray-500 border border-gray-200 dark:border-gray-600 rounded-lg'
               onClick={() => setNums(nums => [...Array(nums.length)].map(() => getNext()))}>
