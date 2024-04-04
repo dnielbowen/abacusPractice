@@ -12,7 +12,7 @@ function numStrToNum(numStr: string) {
 
 function RefreshIcon() {
   return (
-    <svg className='w-[25px] h-[25px]' stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M433 288.8c-7.7 0-14.3 5.9-14.9 13.6-6.9 83.1-76.8 147.9-161.8 147.9-89.5 0-162.4-72.4-162.4-161.4 0-87.6 70.6-159.2 158.2-161.4 2.3-.1 4.1 1.7 4.1 4v50.3c0 12.6 13.9 20.2 24.6 13.5L377 128c10-6.3 10-20.8 0-27.1l-96.1-66.4c-10.7-6.7-24.6.9-24.6 13.5v45.7c0 2.2-1.7 4-3.9 4C148 99.8 64 184.6 64 288.9 64 394.5 150.1 480 256.3 480c100.8 0 183.4-76.7 191.6-175.1.8-8.7-6.2-16.1-14.9-16.1z"></path></svg>
+    <svg className='w-[25px] h-[25px]' stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><path d="M433 288.8c-7.7 0-14.3 5.9-14.9 13.6-6.9 83.1-76.8 147.9-161.8 147.9-89.5 0-162.4-72.4-162.4-161.4 0-87.6 70.6-159.2 158.2-161.4 2.3-.1 4.1 1.7 4.1 4v50.3c0 12.6 13.9 20.2 24.6 13.5L377 128c10-6.3 10-20.8 0-27.1l-96.1-66.4c-10.7-6.7-24.6.9-24.6 13.5v45.7c0 2.2-1.7 4-3.9 4C148 99.8 64 184.6 64 288.9 64 394.5 150.1 480 256.3 480c100.8 0 183.4-76.7 191.6-175.1.8-8.7-6.2-16.1-14.9-16.1z"></path></svg>
   )
 }
 
@@ -21,6 +21,7 @@ function App() {
 
   const getNext = () => Math.floor(max * Math.random());
   const [nums, setNums] = useState([...Array(5)].map(() => getNext()));
+  const [showAnswers, setShowAnswers] = useState(true);
 
   return (
     <div className="flex flex-col gap-4 items-center">
@@ -31,14 +32,14 @@ function App() {
         <div className='text-sm text-center'>Add each number and check with the running total below, helpful for learning the abacus/soroban</div>
       </div>
       <div className='flex justify-center items-end flex-col gap-4'>
-        {nums.map((num, i) => <div className='flex flex-col items-end gap-0'>
+        {nums.map((num, i) => <div key={i} className='flex flex-col items-end gap-0'>
           <div className="font-mono flex gap-1 items-baseline">
             <div className='text-base'>+</div>
             <div className='text-4xl'>
               {num.toLocaleString()}
             </div>
           </div>
-          <div className='text-sm'>
+          <div className={'transition-all duration-500 text-sm' + (!showAnswers ? ' opacity-0' : '')}>
             = {nums.slice(0, i + 1).reduce((acc, x) => acc + x, 0).toLocaleString()}
           </div>
         </div>)}
@@ -54,6 +55,10 @@ function App() {
             </div>
           </div>
           <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-1'>
+              <input type="checkbox" id="hide" checked={showAnswers} onChange={ev => setShowAnswers(ev.currentTarget.checked)} />
+              <label htmlFor="hide">Show answers</label>
+            </div>
             <button className='p-2 text-xl text-gray-500 border border-gray-200 dark:border-gray-600 rounded-lg'
               onClick={() => setNums(nums => [...Array(nums.length)].map(() => getNext()))}>
               <RefreshIcon />
